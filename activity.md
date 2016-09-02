@@ -98,6 +98,23 @@ public class MainActivity extends Activity {
 
     }
 ```
+新建完成之后呢，要注意在manifest配置文件中添加上这个新的activity1。
+
+```
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity1">
+
+        </activity>
+```
 
 ###关闭Activity
 如何关闭一个Activity呢？把Activity1.java的代码贴上来.
