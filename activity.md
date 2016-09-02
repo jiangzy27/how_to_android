@@ -71,3 +71,30 @@ public class MainActivity extends Activity {
 
 
 ```
+
+###转场
+我们新建一个activity1.java文件，也仿照MainActivity.java写一个xml布局文件丢在layout文件夹里面，
+然后绑定它，我们在MainActivity.java里面加一个按钮，点击这个按钮，跳转到activity1去。
+
+```
+    protected void onCreate(Bundle savedInstanceState) {
+        //建立activity，新建进程。
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);//绑定视图
+       //在布局文件声明一个按钮，然后再此用findViewById找到它。
+        Button btn =(Button)findViewById(R.id.btn);//findViewById返回的是view类型,button是view的子类。
+        //绑定一个事件。
+        btn.setOnClickListener(new aa());
+
+
+
+    }
+    class aa implements View.OnClickListener{
+
+        public void   onClick(View vv){
+            Intent i = new Intent(MainActivity.this,activity1.class);
+            startActivity(i);
+        }
+
+    }
+```
