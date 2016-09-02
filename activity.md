@@ -72,7 +72,7 @@ public class MainActivity extends Activity {
 
 ```
 
-###转场
+###切换Activity
 我们新建一个activity1.java文件，也仿照MainActivity.java写一个xml布局文件丢在layout文件夹里面，
 然后绑定它，我们在MainActivity.java里面加一个按钮，点击这个按钮，跳转到activity1去。
 
@@ -98,3 +98,130 @@ public class MainActivity extends Activity {
 
     }
 ```
+
+###关闭Activity
+如何关闭一个Activity呢？把Activity1.java的代码贴上来.
+
+```
+public class activity1  extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.act1);//绑定静态布局文件
+        Button btnClose = (Button) findViewById(R.id.btnclose);
+        btnClose.setOnClickListener(new cc());
+    }
+    class cc implements View.OnClickListener{
+        //关闭activity1
+        public void   onClick(View vv){
+            finish();//调用此方法关闭当前Activity
+        }
+
+    }
+}
+```
+
+###传递字符串数据
+
+MainActivity.java:
+
+```
+//intent是打算，意图做某事的意思。参数是意图要去的对象实例，意图的类。
+Intent i = new Intent(MainActivity.this,activity1.class);
+i.putExtra("myName","张三");
+startActivity(i);
+```
+activity1.java：
+
+```
+public class activity1  extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.act1);//绑定静态文件
+        Button btn = (Button) findViewById(R.id.btn);
+        btn.setOnClickListener(new cc());
+
+
+    }
+    class cc implements View.OnClickListener{
+        //接受上一个Activity传递的参数，并展示出来。
+        public void   onClick(View vv){
+            //文本信息
+            TextView txt = (TextView) findViewById(R.id.yourname);
+            //取得上个Activity传递的字符串数据
+            String str = getIntent().getStringExtra("myName");
+            txt.setText(str);
+        }
+
+    }
+}
+```
+
+###传递复杂数据
+
+MainActivity.java:
+
+```
+Intent i = new Intent(MainActivity.this,activity1.class);
+//bundle比较强大，不仅可以传递基本类型，对象也可以传递，不过需要序列化才行。
+Bundle data = new Bundle();
+data.putString("name","xiaoming");
+data.putInt("id",11111);
+i.putExtras(data);
+startActivity(i);
+
+```
+
+activity1.java：
+
+```
+TextView txt = (TextView) findViewById(R.id.yourname);
+//取得上个Activity传递的字符串数据
+Bundle getdata = getIntent().getExtras();
+String str = getdata.getString("name");
+Integer id = getdata.getInt("id");
+txt.setText(id+"==="+str);
+```
+
+###接收子视图的数据：
+MainActivity.java：
+```
+    class aa implements View.OnClickListener{
+
+        public void   onClick(View vv){
+            Intent i = new Intent(MainActivity.this,activity1.class);
+            //不能用startActivity了。与下面的监听函数配套使用
+            startActivityForResult(i,0);
+        }
+
+    }
+    //监听发送和接受两种状态
+    protected void onActivityResult(int requestCode,int resultCode,Intent data){
+
+        super.onActivityResult(requestCode,resultCode,data);
+        if(resultCode == 200){
+            String res = data.getStringExtra("res");
+            TextView txt2 = (TextView) findViewById(R.id.txt2);
+            txt2.setText(res);
+        }
+    }
+```
+activity1.java
+
+```
+    class cc implements View.OnClickListener{
+        //接受上一个Activity传递的参数，并展示出来。
+        public void   onClick(View vv){
+            Intent i = new Intent();
+            i.putExtra("res","this is a test");//添加一个参数
+            setResult(200,i);//返回到上一个视图的信息
+            finish();//关闭视图
+        }
+
+    }
+```
+
+
+
+
