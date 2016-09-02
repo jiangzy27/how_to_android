@@ -11,7 +11,7 @@
 1.onCreate() <br />
 2.onStart() <br />
 3.onResume() <br />
-4.activity running....
+4.activity running....<br />
 5.onPause() <br />
 6.onStop() <br />
 7.onDestory()<br />
@@ -214,7 +214,7 @@ activity1.java
         //接受上一个Activity传递的参数，并展示出来。
         public void   onClick(View vv){
             Intent i = new Intent();
-            i.putExtra("res","this is a test");//添加一个参数
+            i.putExtra("res","i am from child view");//添加一个参数
             setResult(200,i);//返回到上一个视图的信息
             finish();//关闭视图
         }
