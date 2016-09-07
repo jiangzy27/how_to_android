@@ -57,6 +57,9 @@
                 while((str =bfr.readLine())!=null){
                     System.out.println(str);
                 }
+                bfr.close();
+                isr.close();
+                is.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -79,6 +82,9 @@
                 while((str =bfr.readLine())!=null){
                     System.out.println(str);
                 }
+                bfr.close();
+                isr.close();
+                is.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
